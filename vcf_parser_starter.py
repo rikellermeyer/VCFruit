@@ -26,9 +26,29 @@ class vcBerry(object):
 			self.header = header
 		table.columns = colnames
 		table['CHROM_POS'] = table.iloc[:,0] + '_' + table.iloc[:,1].astype(str)
-		self.fruits = table
-		
-		# define function to split fruits table to snps and indels self objects
+		self.allvars = table
+		snps_table = pd.DataFrame(columns=self.allvars.columns)
+		indels_table = pd.DataFrame(columns=self.allvars.columns)
+		for index, row in self.allvars.iterrows():
+			ref = row[3]
+			alt = row[4]
+			if ',' in alt:
+				alt_list = alt.split(',')
+				if len(alt_list[0]) == len(ref):
+					#snps_table = snps_table.append(row)
+					snps_table = pd.concat([snps_table, row.to_frame().T], ignore_index=True)
+				else:
+					#indels_table = indels_table.append(row)
+					indels_table = pd.concat([indels_table, row.to_frame().T], ignore_index=True)
+			elif len(alt) == len(ref):
+				#snps_table = snps_table.append(row)
+				snps_table = pd.concat([snps_table, row.to_frame().T], ignore_index=True)
+			else:
+				#indels_table = indels_table.append(row)
+				indels_table = pd.concat([indels_table, row.to_frame().T], ignore_index=True)
+		self.snps = snps_table
+		self.indels = indels_table
+		# define function to split allvars table to snps and indels self objects
 
 	################################
 	##Potential function for later##
@@ -38,7 +58,7 @@ class vcBerry(object):
 		# Parse self.header
 			# regex INFO=<ID=(\w+)
 			# store group 1 in list
-		#raw_info = self.fruits.iloc[:,-1:]
+		#raw_info = self.allvars.iloc[:,-1:]
 		#return raw_info
 		# convert raw_info into a list
 		# make empty df with header_list as column IDs
@@ -56,9 +76,11 @@ class vcBerry(object):
 
 raspberry = vcBerry(vcf_file)
 
-print(raspberry.fruits)
-
-
+print(raspberry.allvars)
+print('\n')
+print(raspberry.indels)
+print('\n')
+print(raspberry.snps)
 
 
 
