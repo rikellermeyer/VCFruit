@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-
+import os
 import sys
 import pandas as pd
 
 
-vcf_file = sys.argv[1]
 
 class vcBerry(object):
 	def __init__(self,vcf_file):
@@ -74,14 +73,39 @@ class vcBerry(object):
 					# value = 'NA'
 			# append temp_list to pandas df
 
-raspberry = vcBerry(vcf_file)
+def change_frequency(snps_table):
+	counts_dict = {'A>T':0, 'A>C':0, 'A>G':0,
+								'T>A':0, 'T>C':0, 'T>G':0,
+								'C>A':0, 'C>T':0, 'C>G':0,
+								'G>A':0, 'G>T':0, 'G>C':0}
+	for index, row in snps_table.iterrows():
+		ref = row[3]
+		alt = row[4] 
+		if ',' in alt:
+			alt_list = alt.split(',')
+			for nt in alt_list:
+				snp_type = ref + '>' + nt
+				counts_dict[snp_type] += 1
+		else:
+			snp_type = ref + '>' + alt
+			counts_dict[snp_type] += 1
+	return counts_dict
 
-print(raspberry.allvars)
-print('\n')
-print(raspberry.indels)
-print('\n')
-print(raspberry.snps)
+def main():
+	vcf_file = sys.argv[1]
+	raspberry = vcBerry(vcf_file)
+	raspberry_snp_count = change_frequency(raspberry.snps)
+
+	#print(raspberry.allvars)
+	#print('\n')
+	#print(raspberry.indels)
+	#print('\n')
+	print(raspberry.snps)
+	print('\n')
+	print(raspberry_snp_count)
 
 
+if __name__ == '__main__':
+	main()
 
 
