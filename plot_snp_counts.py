@@ -15,5 +15,6 @@ snp_types = list(kiwi_snp_count.keys())
 
 plt.bar(range(len(kiwi_snp_count)), kiwi_snp_count.values(), tick_label=snp_types)
 plt.xticks(rotation=45)
-plt.ylabel('count')
+plt.ylabel('Count')
+plt.xlabel('SNP Type')
 plt.savefig('snp_counts.png')
