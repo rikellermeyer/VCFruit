@@ -25,9 +25,10 @@ This outputs a dictionary yielding counts for each possible SNP.
 
 
 ### Drupelets
-Drupelets.py is a new python script which demonstrates plotting of the output of the change_frequency() function.
-It uses matplotlib.pyplot to make a basic bar plot.
-With the latest update, it now functions as a script that takes command line input, or can be imported as a module to a script.
+Drupelets.py is a new python script which demonstrates plotting of the output of the change_frequency() function.\n
+It uses matplotlib.pyplot to make a basic bar plot. \n
+With the latest update, it now functions as a script that takes command line input, or can be imported as a module to a script. \n
+
 Call it:
 ```
 plot_snps_freq(kiwi_snps_counts, 'outputfile.png')
