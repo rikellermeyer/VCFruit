@@ -76,6 +76,10 @@ def seq_disruptor(fasta_dict, VCBerry_df, JASPAR_dict, slop_len=15):
 				find_replace_dict[header]['ref'] = ref_seq
 				find_replace_dict[header]['alt'] = alt_seq
 				alt_motifs = motif_search(alt_seq, JASPAR_dict)
+				disrupted_motifs = ref_motifs - alt_motifs
+				gained_motifs = alt_motifs - ref_motifs
+				find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs
+				find_replace_dict[header]['gained_motifs'] = gained_motifs
 		else:
 			header = item + '_' + ref + '>' + alt
 			find_replace_dict[header] = {}
@@ -83,10 +87,10 @@ def seq_disruptor(fasta_dict, VCBerry_df, JASPAR_dict, slop_len=15):
 			find_replace_dict[header]['ref'] = ref_seq
 			find_replace_dict[header]['alt'] = alt_seq
 			alt_motifs = motif_search(alt_seq, JASPAR_dict)
-		disrupted_motifs = ref_motifs - alt_motifs
-		gained_motifs = alt_motifs - ref_motifs
-		find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs
-		find_replace_dict[header]['gained_motifs'] = gained_motifs
+			disrupted_motifs = ref_motifs - alt_motifs
+			gained_motifs = alt_motifs - ref_motifs
+			find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs
+			find_replace_dict[header]['gained_motifs'] = gained_motifs
 	return find_replace_dict
 
 # I've downloaded some jaspar pfm files, and can read them with motifs
