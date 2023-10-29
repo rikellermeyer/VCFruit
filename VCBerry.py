@@ -88,7 +88,7 @@ def main():
 	print(raspberry.snps)
 	print('\n')
 	print(raspberry_snp_count)
-
+	print(raspberry.header)
 
 if __name__ == '__main__':
 	main()
