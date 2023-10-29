@@ -1,15 +1,14 @@
 # VCFruit
 
 ## VCBerry Class Object
-LVB: I added a class object called vcBerry to process vcf inputs.
+LVB: I added a class object called VCBerry to process vcf inputs.
 Load it into your code with your import statements:
 ```
-from vcf_parser_starter import *
+from VCBerry import *
 ```
-Future editions may rename this file to something Fruity.
 To create the object simply call:
 ```
-kiwi = vcBerry(vcf_file)
+kiwi = VCBerry(vcf_file)
 ```
 
 Your object will have the following attributes:
@@ -29,6 +28,7 @@ This outputs a dictionary yielding counts for each possible SNP.
 Drupelets.py is a new python script which demonstrates plotting of the output of the change_frequency() function.\n
 It uses matplotlib.pyplot to make a basic bar plot. \n
 With the latest update, it now functions as a script that takes command line input, or can be imported as a module to a script. \n
+
 Call it:
 ```
 plot_snps_freq(kiwi_snps_counts, 'outputfile.png')
