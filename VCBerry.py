@@ -2,19 +2,20 @@
 
 import os
 import sys
+import re
 import pandas as pd
+import numpy as np
 
-
-
-class vcBerry(object):
+class VCBerry(object):
 	def __init__(self,vcf_file):
 		# make this more specific to individual inputs
 		
 		with open(vcf_file, 'r') as file:
 			table = pd.read_csv(vcf_file, sep='\t', comment='#')
 			#iterate over comment lines and store header
+			file_it = iter(file)
 			header = ''
-			for line in file:
+			for line in file_it:
 				if line.startswith('##'):
 					header += line
 				elif line.startswith('#'):
@@ -26,25 +27,9 @@ class vcBerry(object):
 		table.columns = colnames
 		table['CHROM_POS'] = table.iloc[:,0] + '_' + table.iloc[:,1].astype(str)
 		self.allvars = table
-		snps_table = pd.DataFrame(columns=self.allvars.columns)
-		indels_table = pd.DataFrame(columns=self.allvars.columns)
-		for index, row in self.allvars.iterrows():
-			ref = row[3]
-			alt = row[4]
-			if ',' in alt:
-				alt_list = alt.split(',')
-				if len(alt_list[0]) == len(ref):
-					#snps_table = snps_table.append(row)
-					snps_table = pd.concat([snps_table, row.to_frame().T], ignore_index=True)
-				else:
-					#indels_table = indels_table.append(row)
-					indels_table = pd.concat([indels_table, row.to_frame().T], ignore_index=True)
-			elif len(alt) == len(ref):
-				#snps_table = snps_table.append(row)
-				snps_table = pd.concat([snps_table, row.to_frame().T], ignore_index=True)
-			else:
-				#indels_table = indels_table.append(row)
-				indels_table = pd.concat([indels_table, row.to_frame().T], ignore_index=True)
+		snps_table = self.allvars.loc[(self.allvars['REF'].str.len()) == (self.allvars['ALT'].str.findall(r'^(\w+)').str.len())]
+		indels_table = table.loc[(self.allvars['REF'].str.len()) != (self.allvars['ALT'].str.findall(r'^(\w+)').str.len())]
+		
 		self.snps = snps_table
 		self.indels = indels_table
 		# define function to split allvars table to snps and indels self objects
@@ -93,17 +78,17 @@ def change_frequency(snps_table):
 
 def main():
 	vcf_file = sys.argv[1]
-	raspberry = vcBerry(vcf_file)
+	raspberry = VCBerry(vcf_file)
 	raspberry_snp_count = change_frequency(raspberry.snps)
 
 	#print(raspberry.allvars)
 	#print('\n')
-	#print(raspberry.indels)
-	#print('\n')
+	print(raspberry.indels)
+	print('\n')
 	print(raspberry.snps)
 	print('\n')
 	print(raspberry_snp_count)
-
+	print(raspberry.header)
 
 if __name__ == '__main__':
 	main()
