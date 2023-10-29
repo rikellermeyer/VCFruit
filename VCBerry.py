@@ -29,9 +29,10 @@ class VCBerry(object):
 		self.allvars = table
 		snps_table = self.allvars.loc[(self.allvars['REF'].str.len()) == (self.allvars['ALT'].str.findall(r'^(\w+)').str.len())]
 		indels_table = table.loc[(self.allvars['REF'].str.len()) != (self.allvars['ALT'].str.findall(r'^(\w+)').str.len())]
-		
+		only_indels_table = indels_table.loc[indels_table['ALT'] != '*']
+		self.monomeric = indels_table.loc[indels_table['ALT'] == '*']
 		self.snps = snps_table
-		self.indels = indels_table
+		self.indels = only_indels_table
 		# define function to split allvars table to snps and indels self objects
 
 	################################
@@ -83,12 +84,15 @@ def main():
 
 	#print(raspberry.allvars)
 	#print('\n')
-	print(raspberry.indels)
+	print(raspberry.indels['REF'], raspberry.indels['ALT'])
+	print(f'Number of indels: {len(raspberry.indels)}')
+	#print('\n')
+	#print(raspberry.snps)
 	print('\n')
-	print(raspberry.snps)
+	#print(raspberry.monomeric)
 	print('\n')
 	print(raspberry_snp_count)
-	print(raspberry.header)
+	#print(raspberry.header)
 
 if __name__ == '__main__':
 	main()
