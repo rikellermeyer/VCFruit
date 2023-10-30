@@ -4,7 +4,7 @@
 - Pulls in vcf file and makes a class called `VCBerry`.
 - VCBerry generates the following pandas DataFrames:
   - `VCBerry.snps` are only SNPs.
-  - `VCBerry.indels` are only indels.
+  - `VCBerry.indels` are only INDELs.
   - `VCBerry.monomeric` are invariant sites.
 - Call on VCBerry in a module via:
   - `new_df = VCBerry(vcfile)`
