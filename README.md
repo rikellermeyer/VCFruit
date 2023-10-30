@@ -30,19 +30,19 @@
 - Strawberry then calculates the ***
 
 ## Melon.py
+- Annotates variants with the reference annotation.
 
 ## Grapes.py
 - Grapes provides variant position in a chromosome. 
 
 ## WaterMelon.py: Variant Annotation
 - WaterMelon annotates variants with the reference annotated genome.
-- **Output format?
 
 ## Lychee
 ### LycheeMelon.py
 - LycheeMelon outputs reference and alternate sequence.  
 
-## Lychee.py : Variant Effect Predictor
+### Lychee.py : Variant Effect Predictor
 - Lychee takes the annotated reference and alternate sequences and predicts the effect of the variant.
 - Lychee maps codons to amino acids and determines synonymous versus nonsynonymous mutations based on amino acid properties. 
 - Lychee outputs the translated sequences and associated properties of the variants. **txt file?
