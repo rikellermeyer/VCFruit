@@ -22,8 +22,9 @@
 ## Jackfruit.py : A Motif Module
 - Jackfruit uses the JASPAR databse to identify variants within transcription factor binding sites.
 - Jackfruit takes in a VCBerry.snp database and outputs a dictionary of reference and alternate TF binding motifs.
+- The output of Jackfruit is a dictionary with elements of reference and alternate sequences (as strings), disrupted motifs, and gained motifs (as sets).
 - The INDEL version of Jackfruit is in progress, named `Durian.py`
-- ** Ideal output would be a .tsv
+- Future output of Jackfruit and Durian will include a tsv of sequence positions, sequences, and motif changes.
 
 ## Strawberry.py : Population-level Variant Analysis
 - Strawberry extracts the genotype of every individual for every variant.
@@ -33,7 +34,12 @@
 - Annotates variants with the reference annotation.
 
 ## Grapes.py
-- Grapes provides variant position in a chromosome. 
+- Grapes contains two small functions for looking at VCBerry objects.
+- variant_position provides variant position in a chromosome.
+- change_frequency calculates the number of each distinct snp type.
+
+## Drupelets.py
+- Drupelets plots the output of change_frequency.
 
 ## WaterMelon.py: Variant Annotation
 - WaterMelon annotates variants with the reference annotated genome.
