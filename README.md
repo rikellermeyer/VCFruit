@@ -2,7 +2,7 @@
 
 ## VCFruit.py makes a VCBerry Class Object
 - Pulls in vcf file and makes a class called `VCBerry`.
-- VCBerry generates the following pandas DataFrames.
+- VCBerry generates the following pandas DataFrames:
   - `VCBerry.snps` are only SNPs.
   - `VCBerry.indels` are only indels.
   - `VCBerry.monomeric` are invariant sites.
