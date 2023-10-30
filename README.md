@@ -29,8 +29,8 @@
 - Strawberry extracts the genotype of every individual for every variant.
 - Strawberry then calculates the ***
 
-## Melon.py: Variant Annotation
-- Melon annotates variants with the reference annotated genome.
+## WaterMelon.py: Variant Annotation
+- WaterMelon annotates variants with the reference annotated genome.
 - **Output format?
 
 ## Lychee.py : Variant Effect Predictor
