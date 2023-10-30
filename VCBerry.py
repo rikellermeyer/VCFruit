@@ -5,6 +5,7 @@ import sys
 import re
 import pandas as pd
 import numpy as np
+import random
 
 class VCBerry(object):
 	def __init__(self,vcf_file):
@@ -79,7 +80,12 @@ def change_frequency(snps_table):
 
 def variant_position(snps_table):
 	var_pos = dict(zip(snps_table['POS'], snps_table['ALT']))
-	return var_pos
+	mod_var_pos = {}
+	for pos, var in var_pos.items():
+		if ',' in var:
+			var = random.choice(var.split(','))
+		mod_var_pos[pos] = var
+	return mod_var_pos
 
 
 def main():
