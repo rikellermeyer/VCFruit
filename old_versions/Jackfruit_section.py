@@ -11,7 +11,7 @@
 import sys
 import re
 from Bio import motifs
-from VCFruit import *
+from VCBerry import *
 import pybedtools
 
 # Take in JASPAR matrices and parse to a dict
