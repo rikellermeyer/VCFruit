@@ -85,13 +85,13 @@ mutations_dict = {}
 if len(ref_translated_sequence) != len(translated_sequence):
 	print("Sequences are not the same length")
 else:
-	for (amino_1, amino_2) in enumerate(zip(ref_translated_sequence, translated_sequence)):
+	for  (amino_1, amino_2) in enumerate(zip(ref_translated_sequence, translated_sequence)):
 		mutations_dict[amino_1] = amino_2
 		if amino_1 != amino_2:
 			syn_v_non.append('Non Syn')
 		else:
 			syn_v_non.append('Syn')
-print(mutations_dict)
+
 #mutation_severity - change in properties:
 amino_info_dict = {
     'Arg': 'Positive', 'His': 'Positive', 'Lys': 'Positive',
@@ -103,7 +103,7 @@ amino_info_dict = {
 }
 
 change_in_quality = [] 
-for amino_ref, amino_var in mutations_dict.items():
+for amino_ref, amino_var in mutations_dict.values():
 	quality_ref = amino_info_dict.get(amino_ref)
 	quality_var = amino_info_dict.get(amino_var)
 	if quality_ref != quality_var:
@@ -132,15 +132,5 @@ for i in syn_v_non:
 print(f"The number of synonomous mutations is: {count_syn}\nThe number of non synonomous mutations is: {count_non_syn}")
 
 print(df)
-
-print(var_cod)
-print(ref_cod)
-print(ref_translated_sequence)
-print(translated_sequence)
-print(syn_v_non)
-print(mutations_dict)
-print(change_in_quality)
-
-
 
 
