@@ -1,0 +1,5 @@
+ref	var	ref_amino	var_amino	Syn_vs_nonSyn	Change_in_property
+UUU	GAC	Phe	Asp	Non Syn	Hydrophobic to Negative
+UUU	AUU	Phe	Ile	Non Syn	-
+UUU	CCC	Phe	Pro	Non Syn	Hydrophobic to Special_cases
+UUC	CCC	Phe	Pro	Non Syn	Hydrophobic to Special_cases
