@@ -11,7 +11,7 @@
 import sys
 import re
 from Bio import motifs
-from VCFruit import *
+from VCBerry import *
 import pybedtools
 
 # Take in JASPAR matrices and parse to a dict
@@ -50,17 +50,12 @@ def get_fasta(VCBerry_df, bed, ref_fa):
 	fasta_list = fasta_str.split('\n')[:-1] # split on newlines, remove empty last row
 	fasta_dict = {}
 	i=0
-	fasta_list_it= iter(fasta_list)
-	try:
-		while True:
-			line = next(fasta_list_it)
-			if line.startswith('>'): # I don't like their headers, but ID that it's here
-				header = VCBerry_df.iloc[i]['CHROM_POS'] # Reassign fasta header to chrom_pos
-				i += 1
-			else:
-				fasta_dict[header] = line.upper() # for consistency, to upper
-	except StopIteration:
-		pass
+	for line in fasta_list:
+		if line.startswith('>'): # I don't like their headers, but ID that it's here
+			header = VCBerry_df.iloc[i]['CHROM_POS'] # Reassign fasta header to chrom_pos
+			i += 1
+		else:
+			fasta_dict[header] = line.upper() # for consistency, to upper
 	return fasta_dict
 
 # Small function to loop through JASPAR and put found motifs in a set
@@ -80,44 +75,39 @@ def motif_search(sequence, JASPAR_dict):
 	# Determines which motifs change with the snp
 def seq_disruptor(fasta_dict, VCBerry_df, JASPAR_dict, slop_len=15): # Obviously takes a few args
 	find_replace_dict = {}
-	fasta_keys_it = iter(fasta_dict.keys())
-	try:
-		while True:
-			item = next(fasta_keys_it)
-			df_slice = VCBerry_df.loc[VCBerry_df['CHROM_POS'] == item] # Find the origin line for sequence
-			ref = df_slice.iloc[0]['REF'] # get nts
-			alt = df_slice.iloc[0]['ALT']
-			ref_seq = fasta_dict[item] # get sequence
-			ref_motifs = motif_search(ref_seq, JASPAR_dict) # makes set of motifs in ref_seq
-			if ',' in alt: # some snps have multiple alts
-				alt_list = alt.split(',') # make them into a list
-				for var in alt_list:
-					header = item + '_' + ref + '>' + var # header for eventual dictionary
-					find_replace_dict[header] = {}
-					#print(f'Expected_ref: {ref} | Inserted_alt: {alt}') 
-					#print(fasta_dict[item][:slop_len-1]+ var+fasta_dict[item][slop_len:] )
-					#print(fasta_dict[item])
-					alt_seq = fasta_dict[item][:slop_len-1]+ var +fasta_dict[item][slop_len:] # make snp
-					find_replace_dict[header]['ref'] = ref_seq # put seqs in dictionary
-					find_replace_dict[header]['alt'] = alt_seq
-					alt_motifs = motif_search(alt_seq, JASPAR_dict) # set of motifs in alt_seq
-					disrupted_motifs = ref_motifs - alt_motifs # set math
-					gained_motifs = alt_motifs - ref_motifs
-					find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs # put uniques in dict
-					find_replace_dict[header]['gained_motifs'] = gained_motifs
-			else: # do the same for single variant alts
-				header = item + '_' + ref + '>' + alt
+	for item in fasta_dict: # works by sequence
+		df_slice = VCBerry_df.loc[VCBerry_df['CHROM_POS'] == item] # Find the origin line for sequence
+		ref = df_slice.iloc[0]['REF'] # get nts
+		alt = df_slice.iloc[0]['ALT']
+		ref_seq = fasta_dict[item] # get sequence
+		ref_motifs = motif_search(ref_seq, JASPAR_dict) # makes set of motifs in ref_seq
+		if ',' in alt: # some snps have multiple alts
+			alt_list = alt.split(',') # make them into a list
+			for var in alt_list:
+				header = item + '_' + ref + '>' + var # header for eventual dictionary
 				find_replace_dict[header] = {}
-				alt_seq = fasta_dict[item][:slop_len-1]+ alt +fasta_dict[item][slop_len:]
-				find_replace_dict[header]['ref'] = ref_seq
+				#print(f'Expected_ref: {ref} | Inserted_alt: {alt}') 
+				#print(fasta_dict[item][:slop_len-1]+ var+fasta_dict[item][slop_len:] )
+				#print(fasta_dict[item])
+				alt_seq = fasta_dict[item][:slop_len-1]+ var +fasta_dict[item][slop_len:] # make snp
+				find_replace_dict[header]['ref'] = ref_seq # put seqs in dictionary
 				find_replace_dict[header]['alt'] = alt_seq
-				alt_motifs = motif_search(alt_seq, JASPAR_dict)
-				disrupted_motifs = ref_motifs - alt_motifs
+				alt_motifs = motif_search(alt_seq, JASPAR_dict) # set of motifs in alt_seq
+				disrupted_motifs = ref_motifs - alt_motifs # set math
 				gained_motifs = alt_motifs - ref_motifs
-				find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs
+				find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs # put uniques in dict
 				find_replace_dict[header]['gained_motifs'] = gained_motifs
-	except StopIteration:
-		pass
+		else: # do the same for single variant alts
+			header = item + '_' + ref + '>' + alt
+			find_replace_dict[header] = {}
+			alt_seq = fasta_dict[item][:slop_len-1]+ alt +fasta_dict[item][slop_len:]
+			find_replace_dict[header]['ref'] = ref_seq
+			find_replace_dict[header]['alt'] = alt_seq
+			alt_motifs = motif_search(alt_seq, JASPAR_dict)
+			disrupted_motifs = ref_motifs - alt_motifs
+			gained_motifs = alt_motifs - ref_motifs
+			find_replace_dict[header]['disrupted_motifs'] = disrupted_motifs
+			find_replace_dict[header]['gained_motifs'] = gained_motifs
 	return find_replace_dict
 
 # Testing the functionality of the Jackfruit pipeline

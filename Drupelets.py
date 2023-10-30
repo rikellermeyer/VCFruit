@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from VCBerry import *
+from VCFruit import *
 import numpy as np
 import matplotlib.pyplot as plt
 

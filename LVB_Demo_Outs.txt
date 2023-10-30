@@ -1,0 +1,146 @@
+Making VCBerry Object
+Attributes of Fruit_Pie:
+	allvars
+	header
+	indels
+	monomeric
+	snps
+
+
+
+Testing Grapes function change_frequency()
+SNP Change Frequencies Dictionary:
+{'A>T': 3, 'A>C': 6, 'A>G': 4, 'T>A': 0, 'T>C': 2, 'T>G': 2, 'C>A': 0, 'C>T': 1, 'C>G': 0, 'G>A': 0, 'G>T': 0, 'G>C': 0}
+
+
+
+Testing Grapes function variant_position()
+Positions of Variants in Fruit_Pie:
+10002	C
+10003	C
+10007	C,G
+10008	C,G,T
+10009	C,G
+10013	T
+10014	C,G,T
+10015	C,G,T
+10016	T
+
+
+
+Testing Jackfruit functions
+Make Bed and Get Sequences:
+Position: NC_000001.11_10002
+Sequence: NNNNNNNNNNNNNTAACCCTAACCCTAACC
+Position: NC_000001.11_10003
+Sequence: NNNNNNNNNNNNTAACCCTAACCCTAACCC
+Position: NC_000001.11_10007
+Sequence: NNNNNNNNTAACCCTAACCCTAACCCTAAC
+Position: NC_000001.11_10008
+Sequence: NNNNNNNTAACCCTAACCCTAACCCTAACC
+Position: NC_000001.11_10009
+Sequence: NNNNNNTAACCCTAACCCTAACCCTAACCC
+Position: NC_000001.11_10013
+Sequence: NNTAACCCTAACCCTAACCCTAACCCTAAC
+Position: NC_000001.11_10014
+Sequence: NTAACCCTAACCCTAACCCTAACCCTAACC
+Position: NC_000001.11_10015
+Sequence: TAACCCTAACCCTAACCCTAACCCTAACCC
+Position: NC_000001.11_10016
+Sequence: AACCCTAACCCTAACCCTAACCCTAACCCT
+
+
+Disrupting sequenceswith extension size {slop_len} and getting motif changes:
+SNP Info:NC_000001.11_10002_A>C
+Reference sequence: NNNNNNNNNNNNNTAACCCTAACCCTAACC
+Alternate sequence: NNNNNNNNNNNNNTCACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10003_A>C
+Reference sequence: NNNNNNNNNNNNTAACCCTAACCCTAACCC
+Alternate sequence: NNNNNNNNNNNNTACCCCTAACCCTAACCC
+Disrupted Motifs: set()
+Gained Motifs: {'RPH1', 'GIS1'}
+SNP Info:NC_000001.11_10007_T>C
+Reference sequence: NNNNNNNNTAACCCTAACCCTAACCCTAAC
+Alternate sequence: NNNNNNNNTAACCCCAACCCTAACCCTAAC
+Disrupted Motifs: set()
+Gained Motifs: {'cre-1', 'ADR1'}
+SNP Info:NC_000001.11_10007_T>G
+Reference sequence: NNNNNNNNTAACCCTAACCCTAACCCTAAC
+Alternate sequence: NNNNNNNNTAACCCGAACCCTAACCCTAAC
+Disrupted Motifs: set()
+Gained Motifs: {'OPI1'}
+SNP Info:NC_000001.11_10008_A>C
+Reference sequence: NNNNNNNTAACCCTAACCCTAACCCTAACC
+Alternate sequence: NNNNNNNTAACCCTCACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10008_A>G
+Reference sequence: NNNNNNNTAACCCTAACCCTAACCCTAACC
+Alternate sequence: NNNNNNNTAACCCTGACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10008_A>T
+Reference sequence: NNNNNNNTAACCCTAACCCTAACCCTAACC
+Alternate sequence: NNNNNNNTAACCCTTACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10009_A>C
+Reference sequence: NNNNNNTAACCCTAACCCTAACCCTAACCC
+Alternate sequence: NNNNNNTAACCCTACCCCTAACCCTAACCC
+Disrupted Motifs: set()
+Gained Motifs: {'RPH1', 'GIS1'}
+SNP Info:NC_000001.11_10009_A>G
+Reference sequence: NNNNNNTAACCCTAACCCTAACCCTAACCC
+Alternate sequence: NNNNNNTAACCCTAGCCCTAACCCTAACCC
+Disrupted Motifs: set()
+Gained Motifs: {'CRZ1'}
+SNP Info:NC_000001.11_10013_T>C
+Reference sequence: NNTAACCCTAACCCTAACCCTAACCCTAAC
+Alternate sequence: NNTAACCCTAACCCCAACCCTAACCCTAAC
+Disrupted Motifs: set()
+Gained Motifs: {'cre-1', 'ADR1'}
+SNP Info:NC_000001.11_10013_T>G
+Reference sequence: NNTAACCCTAACCCTAACCCTAACCCTAAC
+Alternate sequence: NNTAACCCTAACCCGAACCCTAACCCTAAC
+Disrupted Motifs: set()
+Gained Motifs: {'OPI1'}
+SNP Info:NC_000001.11_10014_A>C
+Reference sequence: NTAACCCTAACCCTAACCCTAACCCTAACC
+Alternate sequence: NTAACCCTAACCCTCACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10014_A>G
+Reference sequence: NTAACCCTAACCCTAACCCTAACCCTAACC
+Alternate sequence: NTAACCCTAACCCTGACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10014_A>T
+Reference sequence: NTAACCCTAACCCTAACCCTAACCCTAACC
+Alternate sequence: NTAACCCTAACCCTTACCCTAACCCTAACC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10015_A>C
+Reference sequence: TAACCCTAACCCTAACCCTAACCCTAACCC
+Alternate sequence: TAACCCTAACCCTACCCCTAACCCTAACCC
+Disrupted Motifs: set()
+Gained Motifs: {'RPH1', 'GIS1'}
+SNP Info:NC_000001.11_10015_A>G
+Reference sequence: TAACCCTAACCCTAACCCTAACCCTAACCC
+Alternate sequence: TAACCCTAACCCTAGCCCTAACCCTAACCC
+Disrupted Motifs: set()
+Gained Motifs: {'CRZ1'}
+SNP Info:NC_000001.11_10015_A>T
+Reference sequence: TAACCCTAACCCTAACCCTAACCCTAACCC
+Alternate sequence: TAACCCTAACCCTATCCCTAACCCTAACCC
+Disrupted Motifs: set()
+Gained Motifs: set()
+SNP Info:NC_000001.11_10016_C>T
+Reference sequence: AACCCTAACCCTAACCCTAACCCTAACCCT
+Alternate sequence: AACCCTAACCCTAATCCTAACCCTAACCCT
+Disrupted Motifs: set()
+Gained Motifs: {'OTX1', 'oc', 'dve', 'GSC2', 'PITX3', 'Gsc', 'PITX1', 'RHOXF1', 'PITX2', 'unc-30', 'GSC', 'bcd'}
+
+
+

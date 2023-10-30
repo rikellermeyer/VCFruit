@@ -5,9 +5,6 @@ import os
 import sys
 import re
 import pandas as pd
-import numpy as np
-from Bio import motifs
-import pybedtools
 
 
 #################
@@ -34,9 +31,29 @@ class VCBerry(object):
 								# because snp IDs are not universal, create key for identifying snps
                 table['CHROM_POS'] = table.iloc[:,0] + '_' + table.iloc[:,1].astype(str) 
                 self.allvars = table # all variants attribute
-                snps_table = self.allvars.loc[(self.allvars['REF'].str.len()) == (self.allvars['ALT'].str.findall(r'^(\w+)').str.len())] # where ref is same len as var
-                indels_table = table.loc[(self.allvars['REF'].str.len()) != (self.allvars['ALT'].str.findall(r'^(\w+)').str.len())] # where it is not
-                only_indels_table = indels_table.loc[indels_table['ALT'] != '*'] # '*' indicates monomorphic
-                self.monomeric = indels_table.loc[indels_table['ALT'] == '*'] # store monomorphic
+                snps_table1 = self.allvars.loc[(self.allvars['ALT'].str.findall(r'^(\w)+').str.len() == 1)] # where ref is same len as var
+                snps_table2 = self.allvars.loc[(self.allvars['REF'].str.len() == 1)]
+                snps_table = pd.concat([snps_table1, snps_table2], axis=0, join='inner')
+                indels_table1 = self.allvars.loc[(self.allvars['REF'].str.len() >= 2)]
+                indels_table2 = self.allvars.loc[(self.allvars['ALT'].str.findall(r'^(\w)+').str.len() >= 2)] # where it is not
+                indels_table = pd.concat([indels_table1, indels_table2], axis=0, join='outer')
+                self.monomeric = self.allvars.loc[self.allvars['ALT'] == '*'] # store monomorphic
                 self.snps = snps_table # make snps and indels as attributes
-                self.indels = only_indels_table
+                self.indels = indels_table
+
+def main():
+        vcf_file = sys.argv[1]
+        raspberry = VCBerry(vcf_file)
+        print(raspberry)
+        #print(raspberry.allvars)
+        #print('\n')
+        print(raspberry.indels['REF'], raspberry.indels['ALT'])
+        print(f'Number of indels: {len(raspberry.indels)}')
+        #print('\n')
+        print(raspberry.snps[['POS', 'ALT']])
+        print('\n')
+        #print(raspberry.monomeric)
+        print('\n')
+        #print(raspberry.header)
+if __name__ == '__main__':
+        main()
