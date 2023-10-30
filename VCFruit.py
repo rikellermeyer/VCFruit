@@ -13,6 +13,7 @@ import pybedtools
 # Fruits in the Basket
 from Grapes import *
 from Jackfruit import *
+from Strawberry import *
 
 #################
 ##VCBerry Class##
