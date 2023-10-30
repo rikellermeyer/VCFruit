@@ -3,46 +3,49 @@ import re
 import pandas as pd
 import sys
 
-#import files and turn into a string
+
 seq_file = open(sys.argv[1], 'r')
 var_seq_file = open(sys.argv[2], 'r')
-var_seq = "".join(line.strip() for line in var_seq_file).upper()
-seq = "".join(line.strip() for line in seq_file).upper()
+#import files and turn into a string
 
-ORF_list_var = []
-ORF_list_ref = []
-orf_pattern =  re.compile(r'((ATG(?:...)*?)(=TAG|TGA|TAA))')
-for match in orf_pattern.finditer(var_seq):
-	ORF_list_var.append(match.group(1))
-for match in orf_pattern.finditer(seq):
-	ORF_list_ref.append(match.group(1))
+def find_syn_v_non_syn(seq_file, var_seq_file):
+	var_seq = "".join(line.strip() for line in var_seq_file).upper()
+	seq = "".join(line.strip() for line in seq_file).upper()
 
-#transcribe string and split into codons:
-codons_list_ref = []
-for string in ORF_list_ref:
-	string = string.replace('T','U')
-	for index in range(0, len(string), 3):
-		codon = string[index:index+3]
-		codons_list_ref.append(codon)
+	ORF_list_var = []
+	ORF_list_ref = []
+	orf_pattern =  re.compile(r'((ATG(?:...)*?)(=TAG|TGA|TAA))')
+	for match in orf_pattern.finditer(var_seq):
+		ORF_list_var.append(match.group(1))
+	for match in orf_pattern.finditer(seq):
+		ORF_list_ref.append(match.group(1))
 
-codons_list_var = []
-for string in ORF_list_var:
-	string = string.replace('T','U')
-	for index in range(0, len(string), 3):
-		codon = string[index:index+3]
-		codons_list_var.append(codon)
+	#transcribe string and split into codons:
+	codons_list_ref = []
+	for string in ORF_list_ref:
+		string = string.replace('T','U')
+		for index in range(0, len(string), 3):
+			codon = string[index:index+3]
+			codons_list_ref.append(codon)
+
+	codons_list_var = []
+	for string in ORF_list_var:
+		string = string.replace('T','U')
+		for index in range(0, len(string), 3):
+			codon = string[index:index+3]
+			codons_list_var.append(codon)
 
 #create list of reference and variant codons:
-ref_cod = []
-var_cod = []
-for i_1, cod_1 in enumerate(codons_list_ref):
-	for i_2, cod_2 in enumerate(codons_list_var):
-		if (cod_1 != cod_2) and (i_1 == i_2):
-			ref_cod.append(cod_1)
-			var_cod.append(cod_2)
+	ref_cod = []
+	var_cod = []
+	for i_1, cod_1 in enumerate(codons_list_ref):
+		for i_2, cod_2 in enumerate(codons_list_var):
+			if (cod_1 != cod_2) and (i_1 == i_2):
+				ref_cod.append(cod_1)
+				var_cod.append(cod_2)
 
 #dictionary of amino acids and their codons:
-amino_dict = {'AUG':'Met',
+	amino_dict = {'AUG':'Met',
 							'UUU':'Phe', 'UUC':'Phe', 
 							'UUA':'Leu', 'UUG':'Leu', 'CUU':'Leu', 'CUC':'Leu', 'CUA':'Leu', 'CUG':'Leu',
 							'AUU':'Ile', 'AUC':'Ile', 'AUA':'Ile',
@@ -63,74 +66,74 @@ amino_dict = {'AUG':'Met',
 							'CGU':'Arg','CGG':'Arg', 'AGA':'Arg', 'AGG':'Arg',
 							'GGU':'Gly', 'GGC':'Gly', 'GGA':'Gly', 'GGG':'Gly',
 							'UAA':'STOP', 'UAG':'STOP', 'UGA':'STOP'
-}
+	}
 						
 
-ref_translated_sequence = []
-translated_sequence = []
-#translate both sequences:
-amino_acid = {}
-for ref_codon in ref_cod:
+	ref_translated_sequence = []
+	translated_sequence = []
+	#translate both sequences:
+	amino_acid = {}
+	for ref_codon in ref_cod:
 		if ref_codon in amino_dict:
 			ref_translated_sequence.append(amino_dict[ref_codon])
 
-for var_codon in var_cod:
+	for var_codon in var_cod:
 		if var_codon in amino_dict:
 			translated_sequence.append(amino_dict[var_codon])
 
 #compare two protein sequences:
-syn_v_non = []
-mutations_dict = {}
+	syn_v_non = []
+	mutations_dict = {}
 
-if len(ref_translated_sequence) != len(translated_sequence):
-	print("Sequences are not the same length")
-else:
-	for  (amino_1, amino_2) in enumerate(zip(ref_translated_sequence, translated_sequence)):
-		mutations_dict[amino_1] = amino_2
-		if amino_1 != amino_2:
-			syn_v_non.append('Non Syn')
-		else:
-			syn_v_non.append('Syn')
+	if len(ref_translated_sequence) != len(translated_sequence):
+		print("Sequences are not the same length")
+	else:
+		for  (amino_1, amino_2) in enumerate(zip(ref_translated_sequence, translated_sequence)):
+			mutations_dict[amino_1] = amino_2
+			if amino_1 != amino_2:
+				syn_v_non.append('Non Syn')
+			else:
+				syn_v_non.append('Syn')
 
 #mutation_severity - change in properties:
-amino_info_dict = {
+	amino_info_dict = {
     'Arg': 'Positive', 'His': 'Positive', 'Lys': 'Positive',
     'Asp': 'Negative', 'Glu': 'Negative',
     'Ser': 'Polar_Uncharged', 'Thr': 'Polar_Uncharged', 'Asn': 'Polar_Uncharged', 'Gln': 'Polar_Uncharged',
     'Cys': 'Special_cases', 'Gly': 'Special_cases', 'Pro': 'Special_cases',
     'Ala': 'Hydrophobic', 'Val': 'Hydrophobic', 'Ile': 'Hydrophobic', 'Leu': 'Hydrophobic',
     'Met': 'Hydrophobic', 'Phe': 'Hydrophobic', 'Tyr': 'Hydrophobic', 'Trp': 'Hydrophobic'
-}
+	}
 
-change_in_quality = [] 
-for amino_ref, amino_var in mutations_dict.values():
-	quality_ref = amino_info_dict.get(amino_ref)
-	quality_var = amino_info_dict.get(amino_var)
-	if quality_ref != quality_var:
-		change_in_quality.append(f"{quality_ref} to {quality_var}")
-	else:
-		 change_in_quality.append("-")
+	change_in_quality = [] 
+	for amino_ref, amino_var in mutations_dict.values():
+		quality_ref = amino_info_dict.get(amino_ref)
+		quality_var = amino_info_dict.get(amino_var)
+		if quality_ref != quality_var:
+			change_in_quality.append(f"{quality_ref} to {quality_var}")
+		else:
+		 	change_in_quality.append("-")
 
-data =[]
-for ref, var, ref_amino, var_amino, syn_vs_non, change_quality in zip(ref_cod, var_cod, ref_translated_sequence, translated_sequence, syn_v_non, change_in_quality):
-	data.append({
-		'ref':ref, 
-		'var':var,
-		'ref_amino':ref_amino,
-		'var_amino':var_amino,
-		'Syn_vs_nonSyn':syn_vs_non,
-		'Change_in_property':change_quality
-})
-df = pd.DataFrame(data)
-count_syn = 0
-count_non_syn = 0
-for i in syn_v_non:
-	if i == 'Syn':
-		count_syn +=1
-	else:
-		count_non_syn +=1
-print(f"The number of synonomous mutations is: {count_syn}\nThe number of non synonomous mutations is: {count_non_syn}")
+	data =[]
+	for ref, var, ref_amino, var_amino, syn_vs_non, change_quality in zip(ref_cod, var_cod, ref_translated_sequence, translated_sequence, syn_v_non, change_in_quality):
+		data.append({
+			'ref':ref, 
+			'var':var,
+			'ref_amino':ref_amino,
+			'var_amino':var_amino,
+			'Syn_vs_nonSyn':syn_vs_non,
+			'Change_in_property':change_quality
+	})
+	df = pd.DataFrame(data)
+	count_syn = 0
+	count_non_syn = 0
+	for i in syn_v_non:
+		if i == 'Syn':
+			count_syn +=1
+		else:
+			count_non_syn +=1
+	print(f"The number of synonomous mutations is: {count_syn}\nThe number of non synonomous mutations is: {count_non_syn}")
 
-print(df)
-
-
+	
+	return(df)
+print(find_syn_v_non_syn(seq_file, var_seq_file))
