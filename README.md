@@ -1,35 +1,43 @@
 # VCFruit
 
-## VCBerry Class Object
-LVB: I added a class object called VCBerry to process vcf inputs.
-Load it into your code with your import statements:
-```
-from VCBerry import *
-```
-To create the object simply call:
-```
-kiwi = VCBerry(vcf_file)
-```
+## VCFruit.py makes a VCBerry Class Object
+- Pulls in vcf file and makes a class called `VCBerry`.
+- VCBerry generates the following pandas DataFrames.
+  - `VCBerry.snps` are only SNPs.
+  - `VCBerry.indels` are only indels.
+  - `VCBerry.monomeric` are invariant sites.
+- Call on VCBerry in a module via:
+  - `new_df = VCBerry(vcfile)`
+  - `function_return = new_df.snps`
+- Other attributes of a VCBerry object:
+  - `VCBerry.allvars` outputs a combined snp/indel DataFrame.
+  - `VCBerry.header` provides the original vcf header for compiling a new vcf.
 
-Your object will have the following attributes:
-* allvars: A pd-style table with all your vcf information, and an additional column chrom_pos to be used as an identifier across subset items
-* header: your original vcf header information, stored for later use
-* snps: a subset table from allvars containing only single nucleotide polymorphism variants (where len(ref) = len(var))
-* indels: a subset table from allvars containing only insert and deletion variants (where len(ref) != len(var))
+# Modules 
+## Papaya.ipynb : Variant Position Visualization
+- Papaya is a Jupyter notebook that visualizes the position of varaints on a chromosome.
+- The frequency of variants at binned positions along the chromosome is visualized with a Manhattan plot and a heat map.
+- Strawberry also plots the nucleotide change frequencies across all variants.
 
-This class object also contains the function:
-```
-kiwi_snps_counts = change_frequency(kiwi.snps)
-```
-This outputs a dictionary yielding counts for each possible SNP.
+## Jackfruit.py : A Motif Module
+- Jackfruit uses the JASPAR databse to identify variants within transcription factor binding sites.
+- Jackfruit takes in a VCBerry.snp database and outputs a dictionary of reference and alternate TF binding motifs.
+- The INDEL version of Jackfruit is in progress, named `Durian.py`
+- ** Ideal output would be a .tsv
 
+## Strawberry.py : Population-level Variant Analysis
+- Strawberry extracts the genotype of every individual for every variant.
+- Strawberry then calculates the ***
 
-### Drupelets
-Drupelets.py is a new python script which demonstrates plotting of the output of the change_frequency() function.\n
-It uses matplotlib.pyplot to make a basic bar plot. \n
-With the latest update, it now functions as a script that takes command line input, or can be imported as a module to a script. \n
+## Melon.py: Variant Annotation
+- Melon annotates variants with the reference annotated genome.
+- **Output format?
 
-Call it:
-```
-plot_snps_freq(kiwi_snps_counts, 'outputfile.png')
-```
+## Lychee.py : Variant Effect Predictor
+- Lychee takes the annotated reference and alternate sequences and predicts the effect of the variant.
+- Lychee maps codons to amino acids and determines synonymous versus nonsynonymous mutations based on amino acid properties. 
+- Lychee outputs the translated sequences and associated properties of the variants. **txt file?
+
+# Fruit_Basket.py
+- Fruit Basket integrates all the VCFruit modules with the exception of Papaya.
+- The output is a series of files that describe, analyze, and annotate a contributed VCF. 
