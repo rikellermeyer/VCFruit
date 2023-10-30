@@ -21,9 +21,6 @@ for attribute in all_attributes:
 print('\n\n')
 
 print('Testing Grapes function change_frequency()')
-print(Fruit_Pie.snps, '\n')
-print(Fruit_Pie.indels)
-print(Fruit_Pie.snps.loc[(Fruit_Pie.snps['ALT'].str.findall(r'^(\w)+').str.len() >= 2)])
 test_dict = change_frequency(Fruit_Pie.snps)
 print('SNP Change Frequencies Dictionary:')
 print(test_dict)

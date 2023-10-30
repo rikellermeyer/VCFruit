@@ -17,10 +17,16 @@ def change_frequency(snps_table):
 			alt_list = alt.split(',')
 			for nt in alt_list: # iterate through each
 				snp_type = ref + '>' + nt # recreate dictionary keys
-				counts_dict[snp_type] += 1 # count
+				if snp_type not in counts_dict:
+					continue
+				else:
+					counts_dict[snp_type] += 1 # count
 		else:
 			snp_type = ref + '>' + alt # recreate dictionary keys
-			counts_dict[snp_type] += 1 # count
+			if snp_type not in counts_dict:
+				continue
+			else:
+				counts_dict[snp_type] += 1 # count
 	return counts_dict
 
 

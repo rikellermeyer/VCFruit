@@ -9,22 +9,6 @@ Attributes of Fruit_Pie:
 
 
 Testing Grapes function change_frequency()
-          CHROM    POS            ID REF    ALT QUAL FILTER                                               INFO           CHROM_POS
-0  NC_000001.11  10002  rs1570391692   A      C    .      .  RS=1570391692;dbSNPBuildID=154;SSR=0;PSEUDOGEN...  NC_000001.11_10002
-1  NC_000001.11  10003  rs1570391694   A      C    .      .  RS=1570391694;dbSNPBuildID=154;SSR=0;PSEUDOGEN...  NC_000001.11_10003
-2  NC_000001.11  10007  rs1639538116   T    C,G    .      .  RS=1639538116;SSR=0;PSEUDOGENEINFO=DDX11L1:100...  NC_000001.11_10007
-3  NC_000001.11  10008  rs1570391698   A  C,G,T    .      .  RS=1570391698;dbSNPBuildID=154;SSR=0;PSEUDOGEN...  NC_000001.11_10008
-4  NC_000001.11  10009  rs1570391702   A    C,G    .      .  RS=1570391702;dbSNPBuildID=154;SSR=0;PSEUDOGEN...  NC_000001.11_10009
-5  NC_000001.11  10013  rs1639538192   T    C,G    .      .  RS=1639538192;SSR=0;PSEUDOGENEINFO=DDX11L1:100...  NC_000001.11_10013
-7  NC_000001.11  10014  rs1639538207   A  C,G,T    .      .  RS=1639538207;SSR=0;PSEUDOGENEINFO=DDX11L1:100...  NC_000001.11_10014
-8  NC_000001.11  10015  rs1570391706   A  C,G,T    .      .  RS=1570391706;dbSNPBuildID=154;SSR=0;PSEUDOGEN...  NC_000001.11_10015
-9  NC_000001.11  10016  rs1639541071   C      T    .      .  RS=1639541071;SSR=0;PSEUDOGENEINFO=DDX11L1:100...  NC_000001.11_10016 
-
-          CHROM    POS            ID REF ALT QUAL FILTER                                               INFO           CHROM_POS
-6  NC_000001.11  10013  rs1639538231  TA   T    .      .  RS=1639538231;SSR=0;PSEUDOGENEINFO=DDX11L1:100...  NC_000001.11_10013
-Empty DataFrame
-Columns: [CHROM, POS, ID, REF, ALT, QUAL, FILTER, INFO, CHROM_POS]
-Index: []
 SNP Change Frequencies Dictionary:
 {'A>T': 3, 'A>C': 6, 'A>G': 4, 'T>A': 0, 'T>C': 2, 'T>G': 2, 'C>A': 0, 'C>T': 1, 'C>G': 0, 'G>A': 0, 'G>T': 0, 'G>C': 0}
 
@@ -76,7 +60,7 @@ SNP Info:NC_000001.11_10003_A>C
 Reference sequence: NNNNNNNNNNNNTAACCCTAACCCTAACCC
 Alternate sequence: NNNNNNNNNNNNTACCCCTAACCCTAACCC
 Disrupted Motifs: set()
-Gained Motifs: {'GIS1', 'RPH1'}
+Gained Motifs: {'RPH1', 'GIS1'}
 SNP Info:NC_000001.11_10007_T>C
 Reference sequence: NNNNNNNNTAACCCTAACCCTAACCCTAAC
 Alternate sequence: NNNNNNNNTAACCCCAACCCTAACCCTAAC
@@ -106,7 +90,7 @@ SNP Info:NC_000001.11_10009_A>C
 Reference sequence: NNNNNNTAACCCTAACCCTAACCCTAACCC
 Alternate sequence: NNNNNNTAACCCTACCCCTAACCCTAACCC
 Disrupted Motifs: set()
-Gained Motifs: {'GIS1', 'RPH1'}
+Gained Motifs: {'RPH1', 'GIS1'}
 SNP Info:NC_000001.11_10009_A>G
 Reference sequence: NNNNNNTAACCCTAACCCTAACCCTAACCC
 Alternate sequence: NNNNNNTAACCCTAGCCCTAACCCTAACCC
@@ -141,7 +125,7 @@ SNP Info:NC_000001.11_10015_A>C
 Reference sequence: TAACCCTAACCCTAACCCTAACCCTAACCC
 Alternate sequence: TAACCCTAACCCTACCCCTAACCCTAACCC
 Disrupted Motifs: set()
-Gained Motifs: {'GIS1', 'RPH1'}
+Gained Motifs: {'RPH1', 'GIS1'}
 SNP Info:NC_000001.11_10015_A>G
 Reference sequence: TAACCCTAACCCTAACCCTAACCCTAACCC
 Alternate sequence: TAACCCTAACCCTAGCCCTAACCCTAACCC
@@ -156,7 +140,7 @@ SNP Info:NC_000001.11_10016_C>T
 Reference sequence: AACCCTAACCCTAACCCTAACCCTAACCCT
 Alternate sequence: AACCCTAACCCTAATCCTAACCCTAACCCT
 Disrupted Motifs: set()
-Gained Motifs: {'dve', 'PITX2', 'GSC', 'bcd', 'PITX1', 'PITX3', 'unc-30', 'OTX1', 'GSC2', 'Gsc', 'oc', 'RHOXF1'}
+Gained Motifs: {'OTX1', 'oc', 'dve', 'GSC2', 'PITX3', 'Gsc', 'PITX1', 'RHOXF1', 'PITX2', 'unc-30', 'GSC', 'bcd'}
 
 
 
