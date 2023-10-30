@@ -2,6 +2,7 @@
 
 import sys
 from VCFruit import *
+from Grapes import *
 import numpy as np
 import matplotlib.pyplot as plt
 
